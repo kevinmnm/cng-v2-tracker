@@ -1,18 +1,22 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-  </div>
+   <Current />
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import Current from "@/components/current.vue";
+import { io } from "socket.io-client";
 
 export default {
-  name: "Home",
-  components: {
-    HelloWorld
-  }
+   name: "Home",
+   components: {
+      Current,
+   },
+   mounted() {
+      window.socket = io('http://localhost:5555/', {
+         query: {
+            test_query: 'test query'
+         }
+      });
+   },
 };
 </script>

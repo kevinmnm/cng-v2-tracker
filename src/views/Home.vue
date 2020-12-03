@@ -1,21 +1,32 @@
 <template>
-   <Current />
+   <v-container>
+      <Logged />
+   </v-container>
 </template>
 
 <script>
-import Current from "@/components/current.vue";
+import Logged from "@/components/Logged.vue";
 import { io } from "socket.io-client";
 
 export default {
    name: "Home",
    components: {
-      Current,
+      Logged,
    },
-   mounted() {
-      window.socket = io('http://localhost:5555/', {
+   created() {
+      window.socket = io(this.$store.state.fetch_url, {
          query: {
-            test_query: 'test query'
-         }
+            admin: "kevinmnm",
+         },
+      });
+
+      window.socket.on("online-admin", (data) => {
+         this.$store.commit("NUMBER_CONNECTED_MUTATION", data.payload);
+      });
+
+      window.socket.on('user-update-current', data => {
+         console.warn(data);
+         this.$store.commit('ONLINE_USERS_LIST', data);
       });
    },
 };

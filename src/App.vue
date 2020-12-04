@@ -50,7 +50,7 @@ export default {
    data: () => ({
       //
    }),
-   beforeCreate(){
+   mounted(){
       if (process.env.NODE_ENV === 'production') {
          location.replace(`https:${location.href.substring(location.protocol.length)}`);
          this.$store.commit('FETCH_URL_MUTATION', 'https://bvcngserver.herokuapp.com');

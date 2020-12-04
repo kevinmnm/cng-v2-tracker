@@ -2,6 +2,7 @@
    <v-container>
       <v-row>
          <v-col cols="12">
+            <h2 class="text-center" key='1'>TOTAL: {{ all_user.length }}</h2>
             <v-expansion-panels>
                <v-expansion-panel v-for="(user, ind) in all_user" :key="user + ind">
                   <v-expansion-panel-header>
@@ -13,7 +14,7 @@
                            <v-expansion-panel v-for="(dates, ind) in Object.keys(user.activity)" :key="dates + ind">
                               <v-expansion-panel-header>{{dates}}</v-expansion-panel-header>
                                  <v-expansion-panel-content>
-                                       <v-col cols="12" class="yellow d-flex flex-row">
+                                       <!-- <v-col cols="12" class="yellow d-flex flex-row">
                                           <v-col cols='6' class="red d-flex flex-column pa-0 ma-0" >
                                              <v-card 
                                                 v-for="times in Object.keys(user.activity[dates][0])" 
@@ -24,12 +25,18 @@
                                           </v-col>
                                           <v-col cols='6' class="red d-flex flex-column pa-0 ma-0">
                                              <v-card 
-                                                v-for="act in Object.values(user.activity[dates][0])" 
-                                                :key="act"
+                                                v-for="(act, ind) in Object.values(user.activity[dates][0])" 
+                                                :key="act+ind"
                                              >
                                                 <v-col cols='12'>{{act}}</v-col>
                                              </v-card>
                                           </v-col>
+                                       </v-col> -->
+                                       <v-col cols="12" class="d-flex flex-column pa-0" v-for="(all, ind) in Object.entries(user.activity[dates][0])" :key="all+ind">
+                                          <v-sheet class="d-flex flex-row ma-0" outlined width="100%">
+                                             <v-col cols="6" align-self="center">{{ all[0] }}</v-col>
+                                             <v-col cols="6" style="border-left:1px solid lightGrey;">{{ all[1] }}</v-col>
+                                          </v-sheet>
                                        </v-col>
                                  </v-expansion-panel-content>
                            </v-expansion-panel>
@@ -57,7 +64,7 @@ export default {
       },
       all_user(){
          return this.$store.state.all_data.all_tracker
-      },
+      }
 
       // all_user_dates(){
       //    let a;

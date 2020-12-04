@@ -7,11 +7,12 @@ export default new Vuex.Store({
    state: {
       fetch_url: "http://localhost:5555",
       number_connected: 0,
-      online_users_list: [], // socket.id: trackerModel
+      online_users_list: [], 
       all_data: { // For static component.
          all_user: null,
          all_tracker: null
-      }
+      },
+      dynamic_key: 0
    },
    mutations: {
       ALL_DATA_MUTATION(state, payload) { // For static component.
@@ -31,10 +32,12 @@ export default new Vuex.Store({
             let new_user_to_update = Object.values(payload.payload)[0];
 
             let already_online;
+            let replace_index;
 
-            state.online_users_list.forEach( el => {
+            state.online_users_list.forEach( (el, ind) => {
                if (el._id === new_user_to_update._id) {
-                  return already_online = true;
+                  already_online = true;
+                  replace_index = ind;
                }
             });
 
@@ -42,7 +45,7 @@ export default new Vuex.Store({
             if (!already_online) { // If user is not currently online.
                state.online_users_list.push(new_user_to_update);
             } else { // If user is currently online.
-               let replace_index = state.online_users_list.indexOf(new_user_to_update);
+               console.log(JSON.stringify(new_user_to_update, null, 3));
                state.online_users_list[replace_index] = new_user_to_update;
             }
          } else if (payload.action === 'delete') {
@@ -53,6 +56,7 @@ export default new Vuex.Store({
             alert('hmmmmm err?');
          }
 
+         state.dynamic_key++;
          console.warn(payload);
          console.dir(state.online_users_list);
       }

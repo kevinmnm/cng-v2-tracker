@@ -8,6 +8,9 @@
       "lint": "vue-cli-service lint",
       "heroku-postbuild": "npm run build"
    },
+   "engines": {
+      "node": "14.3.0"
+   },
    "dependencies": {
       "core-js": "^3.6.5",
       "socket.io-client": "^3.0.3",

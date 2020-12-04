@@ -55,7 +55,7 @@ export default {
          location.replace(`https:${location.href.substring(location.protocol.length)}`);
          this.$store.commit('FETCH_URL_MUTATION', 'https://bvcngserver.herokuapp.com');
       } else {
-         THIS.$STORE.COMMIT('FETCH_URL_MUTATION', 'http://localhost:5555');
+         this.$store.commit('FETCH_URL_MUTATION', 'http://localhost:5555');
       }
    }
 };

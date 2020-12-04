@@ -5,7 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
    state: {
-      fetch_url: "http://localhost:5555",
+      fetch_url: "",
       number_connected: 0,
       online_users_list: [], 
       all_data: { // For static component.
@@ -15,6 +15,9 @@ export default new Vuex.Store({
       dynamic_key: 0
    },
    mutations: {
+      FETCH_URL_MUTATION(state, payload) {
+         state.fetch_url = payload;
+      },
       ALL_DATA_MUTATION(state, payload) { // For static component.
          state.all_data.all_user = payload.allUser;
          state.all_data.all_tracker = payload.allTracker;
